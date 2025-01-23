@@ -17,8 +17,12 @@ void handleClient(int clientSocket){
 
 		sockaddr_in servaddr;
 		servaddr.sin_family = AF_INET;
-		servaddr.sin_port = htons(BEPORT);
+		servaddr.sin_port = htons(servlist[servit]);
 		inet_pton(AF_INET,BEIP,&servaddr.sin_addr);
+
+		//switch to another server number
+		servit++;
+		servit = servit%servnum;
 
 		if(connect(sockbe,(sockaddr*)&servaddr,sizeof(servaddr)) == -1){
 			std::cout<<"Error in connecting to the backend server";
@@ -41,6 +45,7 @@ void handleClient(int clientSocket){
 }
 
 int main(int argc, char* argv[]){
+	servnum = servlist.size();
 
 	std::cout<<"Load Balancer started!\n";
 

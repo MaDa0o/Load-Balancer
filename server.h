@@ -13,6 +13,10 @@
 #define LBPORT		80
 #define BEPORT		8080
 
+std::vector<int> servlist{8080,8081};
+int servnum;
+int servit=0;
+
 void handleClient(int);
 
 int main(int, char**);
